@@ -1,0 +1,19 @@
+# Michael Rajotte
+# Copyright 2013 Michael Rajotte <michael@michaelrajotte.com>
+
+#We will tell "pkg-config" to locate GTK+ libraries in our custom path. If you extracted to "/opt/gtk-macosx" e.g. :
+#export PKG_CONFIG_PATH=/home/michael/Projects/osx/gtk-macosx/lib/pkgconfig
+
+#Force 32bit since GTK+ libraries are 32bit for OSX.
+32BIT := -m32
+
+CC := i686-apple-darwin10-gcc
+INCLUDE := -I/usr/local/include
+COMMON:= inventory.c export.c import.c partSales.c accounts.c accounts_view.c saleView.c warranty.c sales.c inventory_add.c partSales_add.c systems.c systems_add.c
+LIBS:= -lz -L/home/michael/Projects/osx/mysql-connector-c-6.1.2-osx10.6-x86/include -I/home/michael/Projects/osx/mysql-connector-c-6.1.2-osx10.6-x86/include
+LIBSCONNECT:= -lmysqlclient -L/home/michael/Projects/osx/mysql-connector-c-6.1.2-osx10.6-x86/lib
+
+PKGCONFIG = `(pkg-config --cflags --libs gtk+-2.0 gmodule-2.0 gthread-2.0)`
+
+milparts: milparts.c milparts.h systray.h messages.h configuration.h functions.h settings.h inventory.c inventory.h export.c export.h import.c import.h partSales.c partSales.h calendar.h accounts.c accounts.h accounts_structs.h accounts_view.c accounts_view.h saleView.c saleView.h warranty.c warranty.h sales.c sales.h inventory_add.c inventory_add.h partSales_add.c partSales_add.h systems.c systems.h systems_add.c systems_add.h
+	$(CC) $(32BIT) -lm $(INCLUDE) $(LIBS) $(LIBSCONNECT) $(PKGCONFIG) -o milparts milparts.c $(COMMON) 
