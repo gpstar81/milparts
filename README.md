@@ -1,4 +1,3 @@
-# Packages required to be installed in this order for Tails.
 Custom inventory management and other ERP features.
 
 Refer to the milparts manual for full instructions on using.
